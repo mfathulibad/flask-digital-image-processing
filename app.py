@@ -36,6 +36,11 @@ def index():
 def about():
     return render_template('about.html')
 
+@app.route("/user")
+@nocache
+def user():
+    return render_template('user.html')
+
 
 @app.after_request
 def add_header(r):
@@ -62,21 +67,21 @@ def upload():
     for file in request.files.getlist("file"):
         file.save("static/img/img_now.jpg")
     copyfile("static/img/img_now.jpg", "static/img/img_normal.jpg")
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("dashboard.html", file_path="img/img_now.jpg")
 
 
 @app.route("/normal", methods=["POST"])
 @nocache
-def normal():
+def normal(): 
     copyfile("static/img/img_normal.jpg", "static/img/img_now.jpg")
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("user.html", file_path="img/img_now.jpg")
 
 
 @app.route("/grayscale", methods=["POST"])
 @nocache
 def grayscale():
     image_processing.grayscale()
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("user.html", file_path="img/img_now.jpg")
 
 
 @app.route("/zoomin", methods=["POST"])
