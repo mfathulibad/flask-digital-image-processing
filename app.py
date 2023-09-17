@@ -6,6 +6,7 @@ from flask import Flask, render_template, request, make_response
 from datetime import datetime
 from functools import wraps, update_wrapper
 from shutil import copyfile
+import threading
 
 app = Flask(__name__)
 
@@ -47,6 +48,10 @@ def positioning():
 def lighting():
     return render_template('lighting.html')
 
+@app.route("/analyze")
+@nocache
+def analyze():
+    return render_template('analyze.html')
 
 @app.after_request
 def add_header(r):
@@ -191,11 +196,19 @@ def sharpening():
 @app.route("/histogram_rgb", methods=["POST"])
 @nocache
 def histogram_rgb():
-    image_processing.histogram_rgb()
+    # Fungsi yang akan dijalankan dalam thread terpisah
+    def process_histogram():
+        image_processing.histogram_rgb()
+
+    # Buat thread baru untuk menjalankan operasi histogram
+    histogram_thread = threading.Thread(target=process_histogram)
+    histogram_thread.start()  # Mulai thread
+
     if image_processing.is_grey_scale("static/img/img_now.jpg"):
         return render_template("histogram.html", file_paths=["img/grey_histogram.jpg"])
     else:
         return render_template("histogram.html", file_paths=["img/red_histogram.jpg", "img/green_histogram.jpg", "img/blue_histogram.jpg"])
+
 
 
 @app.route("/thresholding", methods=["POST"])

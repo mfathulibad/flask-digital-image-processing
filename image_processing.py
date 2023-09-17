@@ -247,7 +247,7 @@ def histogram_rgb():
     img = Image.open(img_path)
     img_arr = np.asarray(img)
     if is_grey_scale(img_path):
-        g = img_arr[:, :, 0].flatten()
+        g = img_arr.flatten()
         data_g = Counter(g)
         plt.bar(list(data_g.keys()), data_g.values(), color='black')
         plt.savefig(f'static/img/grey_histogram.jpg', dpi=300)
