@@ -3,68 +3,68 @@
 <div class="wrapper">
     <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
 
-    <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
-
-
-    	<div class="sidebar-wrapper">
-            <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
-                    Creative Tim
-                </a>
+        <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
+    
+    
+            <div class="sidebar-wrapper">
+                <div class="logo">
+                    <a href="http://www.creative-tim.com" class="simple-text">
+                        Creative Tim
+                    </a>
+                </div>
+    
+                <ul class="nav">
+                    <li>
+                        <a href="/">
+                            <i class="pe-7s-graph"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/general">
+                            <i class="pe-7s-user"></i>
+                            <p>General</p>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/positioning">
+                            <i class="pe-7s-note2"></i>
+                            <p>Positioning</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/lighting">
+                            <i class="pe-7s-news-paper"></i>
+                            <p>Lighting</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="icons.html">
+                            <i class="pe-7s-science"></i>
+                            <p>Icons</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="maps.html">
+                            <i class="pe-7s-map-marker"></i>
+                            <p>Maps</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="notifications.html">
+                            <i class="pe-7s-bell"></i>
+                            <p>Notifications</p>
+                        </a>
+                    </li>
+                    <li class="active-pro">
+                        <a href="upgrade.html">
+                            <i class="pe-7s-rocket"></i>
+                            <p>Upgrade to PRO</p>
+                        </a>
+                    </li>
+                </ul>
             </div>
-
-            <ul class="nav">
-                <li>
-                    <a href="/">
-                        <i class="pe-7s-graph"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="user.html">
-                        <i class="pe-7s-user"></i>
-                        <p>Digital Image Processing</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="table.html">
-                        <i class="pe-7s-note2"></i>
-                        <p>Table List</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="typography.html">
-                        <i class="pe-7s-news-paper"></i>
-                        <p>Typography</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="icons.html">
-                        <i class="pe-7s-science"></i>
-                        <p>Icons</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="maps.html">
-                        <i class="pe-7s-map-marker"></i>
-                        <p>Maps</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="notifications.html">
-                        <i class="pe-7s-bell"></i>
-                        <p>Notifications</p>
-                    </a>
-                </li>
-				<li class="active-pro">
-                    <a href="upgrade.html">
-                        <i class="pe-7s-rocket"></i>
-                        <p>Upgrade to PRO</p>
-                    </a>
-                </li>
-            </ul>
-    	</div>
-    </div>
+        </div>
 
     <div class="main-panel">
 		<nav class="navbar navbar-default navbar-fixed">
@@ -154,23 +154,23 @@
                     <div class="col-md-4">
                         <div class="d-flex flex-wrap">
                             <div class="p-2 flex-fill bd-highlight">
-                                <form id="" action="{{ url_for('normal') }}" method="POST" enctype="multipart/form-data">
-                                    <button type="submit" class="btn btn-primary">Normal</button>
+                                <form id="" action="{{ url_for('move_left') }}" method="POST" enctype="multipart/form-data">
+                                    <button type="submit" class="btn btn-primary">Geser Kiri</button>
                                 </form>
                             </div>
                             <div class="p-2 flex-fill bd-highlight">
-                                <form id="" action="{{ url_for('grayscale') }}" method="POST" enctype="multipart/form-data">
-                                    <button type="submit" class="btn btn-primary">Grayscale</button>
+                                <form id="" action="{{ url_for('move_right') }}" method="POST" enctype="multipart/form-data">
+                                    <button type="submit" class="btn btn-primary">Geser Kanan</button>
                                 </form>
                             </div>
                             <div class="p-2 flex-fill bd-highlight">
-                                <form id="" action="{{ url_for('zoomin') }}" method="POST" enctype="multipart/form-data">
-                                    <button type="submit" class="btn btn-primary">Zoom In</button>
+                                <form id="" action="{{ url_for('move_up') }}" method="POST" enctype="multipart/form-data">
+                                    <button type="submit" class="btn btn-primary">Geser Atas</button>
                                 </form>
                             </div>
                             <div class="p-2 flex-fill bd-highlight">
-                                <form id="" action="{{ url_for('zoomout') }}" method="POST" enctype="multipart/form-data">
-                                    <button type="submit" class="btn btn-primary">Zoom Out</button>
+                                <form id="" action="{{ url_for('move_down') }}" method="POST" enctype="multipart/form-data">
+                                    <button type="submit" class="btn btn-primary">Geser Bawah</button>
                                 </form>
                             </div>
                         </div>
@@ -184,7 +184,7 @@
                             </div>
                             <div class="content">
                                 <p>Uploaded Photo</p>
-                                <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}" alt="image here" width="600px">
+                                <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}" alt="image here" style="max-width: 800px;">
                             </div>
                         </div>
                     </div>

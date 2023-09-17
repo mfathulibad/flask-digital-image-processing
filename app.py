@@ -31,15 +31,21 @@ def index():
     return render_template("dashboard.html", file_path="img/image_here.jpg")
 
 
-@app.route("/about")
+@app.route("/general")
 @nocache
-def about():
-    return render_template('about.html')
+def general():
+    return render_template('general.html')
 
-@app.route("/user")
+
+@app.route("/positioning")
 @nocache
-def user():
-    return render_template('user.html')
+def positioning():
+    return render_template('positioning.html')
+
+@app.route("/lighting")
+@nocache
+def lighting():
+    return render_template('lighting.html')
 
 
 @app.after_request
@@ -74,84 +80,84 @@ def upload():
 @nocache
 def normal(): 
     copyfile("static/img/img_normal.jpg", "static/img/img_now.jpg")
-    return render_template("user.html", file_path="img/img_now.jpg")
+    return render_template("general.html", file_path="img/img_now.jpg")
 
 
 @app.route("/grayscale", methods=["POST"])
 @nocache
 def grayscale():
     image_processing.grayscale()
-    return render_template("user.html", file_path="img/img_now.jpg")
+    return render_template("general.html", file_path="img/img_now.jpg")
 
 
 @app.route("/zoomin", methods=["POST"])
 @nocache
 def zoomin():
     image_processing.zoomin()
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("general.html", file_path="img/img_now.jpg")
 
 
 @app.route("/zoomout", methods=["POST"])
 @nocache
 def zoomout():
     image_processing.zoomout()
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("general.html", file_path="img/img_now.jpg")
 
 
 @app.route("/move_left", methods=["POST"])
 @nocache
 def move_left():
     image_processing.move_left()
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("positioning.html", file_path="img/img_now.jpg")
 
 
 @app.route("/move_right", methods=["POST"])
 @nocache
 def move_right():
     image_processing.move_right()
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("positioning.html", file_path="img/img_now.jpg")
 
 
 @app.route("/move_up", methods=["POST"])
 @nocache
 def move_up():
     image_processing.move_up()
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("positioning.html", file_path="img/img_now.jpg")
 
 
 @app.route("/move_down", methods=["POST"])
 @nocache
 def move_down():
     image_processing.move_down()
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("positioning.html", file_path="img/img_now.jpg")
 
 
 @app.route("/brightness_addition", methods=["POST"])
 @nocache
 def brightness_addition():
     image_processing.brightness_addition()
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("lighting.html", file_path="img/img_now.jpg")
 
 
 @app.route("/brightness_substraction", methods=["POST"])
 @nocache
 def brightness_substraction():
     image_processing.brightness_substraction()
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("lighting.html", file_path="img/img_now.jpg")
 
 
 @app.route("/brightness_multiplication", methods=["POST"])
 @nocache
 def brightness_multiplication():
     image_processing.brightness_multiplication()
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("lighting.html", file_path="img/img_now.jpg")
 
 
 @app.route("/brightness_division", methods=["POST"])
 @nocache
 def brightness_division():
     image_processing.brightness_division()
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("lighting.html", file_path="img/img_now.jpg")
 
 
 @app.route("/histogram_equalizer", methods=["POST"])
