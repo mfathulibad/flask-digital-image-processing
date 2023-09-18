@@ -7,8 +7,7 @@ from datetime import datetime
 from functools import wraps, update_wrapper
 from shutil import copyfile
 import threading
-import cv2
-import base64
+import random
 
 app = Flask(__name__)
 
@@ -254,7 +253,39 @@ def crop_normal():
 
     return render_template('quiz.html', tile_files=tile_files, n = n_value)
 
+@app.route("/rgb_table", methods=["POST"])
+@nocache
+def rgb_table():
+    target = os.path.join(APP_ROOT, "static/img")
+    image_dimensions = image_processing.get_image_dimensions("static/img/img_now.jpg")
+    rgb_values = image_processing.get_image_rgb("static/img/img_now.jpg")
+    if not os.path.isdir(target):
+        if os.name == 'nt':
+            os.makedirs(target)
+        else:
+            os.mkdir(target)
+    for file in request.files.getlist("file"):
+        file.save("static/img/img_now.jpg")
+    copyfile("static/img/img_now.jpg", "static/img/img_normal.jpg")
+    return render_template("quiz_table.html", file_path="img/img_now.jpg", img_dim=image_dimensions, img_rgb_val=rgb_values)
 
-    
+@app.route("/crop_random", methods=["POST"])
+@nocache
+def crop_random():
+    n_value = request.form.get('n_value')
+    n_value = int(n_value)
+
+    image_processing.crop_normal(n_value)
+    # Define the directory where the image tiles are stored
+    tile_directory = 'static/img/tiles/'
+
+    # List all tile files in the directory
+    tile_files = os.listdir(tile_directory)
+
+    # Shuffle the tile_files list randomly
+    random.shuffle(tile_files)
+
+    return render_template('quiz.html', tile_files=tile_files, n=n_value)
+
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")

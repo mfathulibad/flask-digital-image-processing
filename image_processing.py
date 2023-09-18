@@ -354,3 +354,22 @@ def crop_normal(n):
             # Save the tile
             tile_filename = os.path.join(output_directory, f'tile_{i * n + j + 1}.jpg')
             cv2.imwrite(tile_filename, tile)
+
+
+def get_image_rgb(image_path):
+    try:
+        with Image.open(image_path) as img:
+            rgb_values = list(img.getdata())
+            return rgb_values
+    except Exception as e:
+        return None
+
+def get_image_dimensions(image_path):
+    try:
+        with Image.open(image_path) as img:
+            width, height = img.size
+            return width, height
+    except Exception as e:
+        return None
+    
+    

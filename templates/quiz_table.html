@@ -180,30 +180,6 @@
                                             </tbody>
                                         </table>
                                     </form>
-
-                                    <form id="" action="{{ url_for('crop_random') }}" method="POST" enctype="multipart/form-data">
-                                        <table class="table table-sm">
-                                            <thead>
-                                                <tr>
-                                                    <th>Crop Random</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><input type="number" name="n_value" placeholder="Input Number"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3"><button type="submit" class="btn btn-primary">Crop Image</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </form>
-
-                                    <div class="p-2 flex-fill bd-highlight">
-                                        <form id="" action="{{ url_for('rgb_table') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                            <button type="submit" class="btn btn-primary">RGB Table</button>
-                                        </form>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -217,10 +193,10 @@
                             </div>
                             <div class="content">
                                 <p>Uploaded Photo</p>
-                                <div class="container mt-4">
+                                <div class="tile-container">
                                     <div class="row">
                                         {% for tile_file in tile_files %}
-                                            <div class="col-auto col-md-{{ 12 // n }}">
+                                            <div class="col-md-{{ 12 // n }}">
                                                 <div class="tile">
                                                     <img src="{{ url_for('static', filename='img/tiles/' + tile_file) }}" alt="Tile {{ loop.index }}" width="50px">
                                                 </div>
@@ -237,6 +213,23 @@
                 </div>
             </div>
         </div>
+
+        <table style="background-color: white;">
+            <tr>
+                <th style="width: 100px;">Pixel</th>
+                <th style="width: 100px;">R</th>
+                <th style="width: 100px;">G</th>
+                <th style="width: 100px;">B</th>
+            </tr>
+            {% for i in range(img_dim[0] * img_dim[1]) %}
+            <tr>
+                <td>{{ i + 1 }}</td>
+                <td>{{ img_rgb_val[i][0] }}</td>
+                <td>{{ img_rgb_val[i][1] }}</td>
+                <td>{{ img_rgb_val[i][2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
 
         <footer class="footer">
             <div class="container-fluid">
