@@ -45,15 +45,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="maps.html">
+                    <a href="/image_filtering">
                         <i class="pe-7s-map-marker"></i>
-                        <p>Maps</p>
+                        <p>Image Filtering</p>
                     </a>
                 </li>
                 <li>
-                    <a href="notifications.html">
+                    <a href="/about">
                         <i class="pe-7s-bell"></i>
-                        <p>Notifications</p>
+                        <p>About</p>
                     </a>
                 </li>
                 <li class="active-pro">
@@ -154,12 +154,20 @@
                 <div class="row">
                     <div class="col-md-4">
 
-                        <h2>Analisis Gambar</h2>
-                        <div class="p-2 flex-fill bd-highlight">
-                            <form id="" action="{{ url_for('histogram_rgb') }}" method="POST"
-                                enctype="multipart/form-data">
-                                <button type="submit" class="btn btn-primary">Histogram</button>
-                            </form>
+                        <div class="card">
+                            <div class="header">
+                                <h3 class="title">Analyze</h3>
+                                <p class="category">
+                                    You can analyze your image with this histogram
+                                </p>
+                            </div>
+                            <div class="content">
+                              <div class="p-2 flex-fill bd-highlight">
+                                <form id="" action="{{ url_for('histogram_rgb') }}" method="POST" enctype="multipart/form-data">
+                                  <button type="submit" class="btn btn-primary">Histogram</button>
+                                </form>
+                              </div>
+                            </div>
                         </div>
 
                     </div>
@@ -173,7 +181,7 @@
                             <div class="content">
                                 <p>Uploaded Photo</p>
                                 <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}"
-                                    alt="image here" style="max-width: 800px;">
+                                    alt="image here" style="max-width: 700px;">
                             </div>
                         </div>
                     </div>

@@ -53,6 +53,17 @@ def lighting():
 def analyze():
     return render_template('analyze.html')
 
+@app.route("/image_filtering")
+@nocache
+def image_filtering():
+    return render_template('image_filtering.html')
+
+@app.route("/about")
+@nocache
+def about():
+    return render_template('about.html')
+
+
 @app.after_request
 def add_header(r):
     """
@@ -176,21 +187,21 @@ def histogram_equalizer():
 @nocache
 def edge_detection():
     image_processing.edge_detection()
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("image_filtering.html", file_path="img/img_now.jpg")
 
 
 @app.route("/blur", methods=["POST"])
 @nocache
 def blur():
     image_processing.blur()
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("image_filtering.html", file_path="img/img_now.jpg")
 
 
 @app.route("/sharpening", methods=["POST"])
 @nocache
 def sharpening():
     image_processing.sharpening()
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("image_filtering.html", file_path="img/img_now.jpg")
 
 
 @app.route("/histogram_rgb", methods=["POST"])
@@ -217,7 +228,7 @@ def thresholding():
     lower_thres = int(request.form['lower_thres'])
     upper_thres = int(request.form['upper_thres'])
     image_processing.threshold(lower_thres, upper_thres)
-    return render_template("uploaded.html", file_path="img/img_now.jpg")
+    return render_template("image_filtering.html", file_path="img/img_now.jpg")
 
 
 if __name__ == '__main__':

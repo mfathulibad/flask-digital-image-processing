@@ -45,15 +45,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="maps.html">
+                    <a href="/image_filtering">
                         <i class="pe-7s-map-marker"></i>
-                        <p>Maps</p>
+                        <p>Image Filtering</p>
                     </a>
                 </li>
                 <li>
-                    <a href="notifications.html">
+                    <a href="/about">
                         <i class="pe-7s-bell"></i>
-                        <p>Notifications</p>
+                        <p>About</p>
                     </a>
                 </li>
 				<li class="active-pro">
@@ -147,31 +147,38 @@
             </div>
         </nav>
 
-
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="d-flex flex-wrap">
-                            <div class="p-2 flex-fill bd-highlight">
-                                <form id="" action="{{ url_for('normal') }}" method="POST" enctype="multipart/form-data">
-                                    <button type="submit" class="btn btn-primary">Normal</button>
-                                </form>
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">General</h4>
+                                <p class="category">
+                                    This is general function of this application
+                                </p>
                             </div>
-                            <div class="p-2 flex-fill bd-highlight">
-                                <form id="" action="{{ url_for('grayscale') }}" method="POST" enctype="multipart/form-data">
-                                    <button type="submit" class="btn btn-primary">Grayscale</button>
-                                </form>
-                            </div>
-                            <div class="p-2 flex-fill bd-highlight">
-                                <form id="" action="{{ url_for('zoomin') }}" method="POST" enctype="multipart/form-data">
-                                    <button type="submit" class="btn btn-primary">Zoom In</button>
-                                </form>
-                            </div>
-                            <div class="p-2 flex-fill bd-highlight">
-                                <form id="" action="{{ url_for('zoomout') }}" method="POST" enctype="multipart/form-data">
-                                    <button type="submit" class="btn btn-primary">Zoom Out</button>
-                                </form>
+                            <div class="content">
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('normal') }}" method="POST" enctype="multipart/form-data">
+                                        <button type="submit" class="btn btn-primary">Normal</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('grayscale') }}" method="POST" enctype="multipart/form-data" style="margin-top: 20px;">
+                                        <button type="submit" class="btn btn-primary">Grayscale</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('zoomin') }}" method="POST" enctype="multipart/form-data" style="margin-top: 20px;">
+                                        <button type="submit" class="btn btn-primary">Zoom In</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('zoomout') }}" method="POST" enctype="multipart/form-data" style="margin-top: 20px;">
+                                        <button type="submit" class="btn btn-primary">Zoom Out</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -184,14 +191,14 @@
                             </div>
                             <div class="content">
                                 <p>Uploaded Photo</p>
-                                <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}" alt="image here" style="max-width: 800px;">
+                                <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}"
+                                    alt="image here" style="max-width: 700px;" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
 
         <footer class="footer">
             <div class="container-fluid">

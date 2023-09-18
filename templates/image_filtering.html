@@ -26,7 +26,7 @@
                             <p>General</p>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="/positioning">
                             <i class="pe-7s-note2"></i>
                             <p>Positioning</p>
@@ -152,35 +152,45 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
-
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Positioning</h4>
-                                <p class="category">
-                                    You can position your image with these function
-                                </p>
+                        <div class="d-flex flex-wrap">
+                            <h2>Filter Gambar</h2>
+                            <div class="p-2 flex-fill bd-highlight">
+                                <form id="" action="{{ url_for('edge_detection') }}" method="POST" enctype="multipart/form-data">
+                                    <button type="submit" class="btn btn-primary">Edge Detection</button>
+                                </form>
                             </div>
-                            <div class="content">
-                                <div class="p-2 flex-fill bd-highlight">
-                                    <form id="" action="{{ url_for('move_left') }}" method="POST" enctype="multipart/form-data">
-                                        <button type="submit" class="btn btn-primary">Geser Kiri</button>
-                                    </form>
-                                </div>
-                                <div class="p-2 flex-fill bd-highlight">
-                                    <form id="" action="{{ url_for('move_right') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">Geser Kanan</button>
-                                    </form>
-                                </div>
-                                <div class="p-2 flex-fill bd-highlight">
-                                    <form id="" action="{{ url_for('move_up') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">Geser Atas</button>
-                                    </form>
-                                </div>
-                                <div class="p-2 flex-fill bd-highlight">
-                                    <form id="" action="{{ url_for('move_down') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">Geser Bawah</button>
-                                    </form>
-                                </div>
+                            <div class="p-2 flex-fill bd-highlight">
+                                <form id="" action="{{ url_for('blur') }}" method="POST" enctype="multipart/form-data">
+                                    <button type="submit" class="btn btn-primary">Blur</button>
+                                </form>
+                            </div>
+                            <div class="p-2 flex-fill bd-highlight">
+                                <form id="" action="{{ url_for('sharpening') }}" method="POST" enctype="multipart/form-data">
+                                    <button type="submit" class="btn btn-primary">Sharpening</button>
+                                </form>
+                            </div>
+
+                            <h2>Segmentation</h2>
+                            <div class="p-2 flex-fill bd-highlight">
+                                <form id="" action="{{ url_for('thresholding') }}" method="POST" enctype="multipart/form-data">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Batas Bawah</th>
+                                                <th>Batas Atas</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="number" name="lower_thres" placeholder="0-255"></td>
+                                                <td><input type="number" name="upper_thres" placeholder="0-255"></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"><button type="submit" class="btn btn-primary">Thresholding</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -193,7 +203,7 @@
                             </div>
                             <div class="content">
                                 <p>Uploaded Photo</p>
-                                <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}" alt="image here" style="max-width: 700px;">
+                                <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}" alt="image here" style="max-width: 800px;">
                             </div>
                         </div>
                     </div>

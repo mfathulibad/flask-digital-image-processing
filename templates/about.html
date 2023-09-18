@@ -26,7 +26,7 @@
                             <p>General</p>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="/positioning">
                             <i class="pe-7s-note2"></i>
                             <p>Positioning</p>
@@ -50,7 +50,7 @@
                             <p>Image Filtering</p>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="/about">
                             <i class="pe-7s-bell"></i>
                             <p>About</p>
@@ -151,52 +151,37 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="card card-user">
+                        <div class="content">
+                            <div class="text-center">
 
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Positioning</h4>
-                                <p class="category">
-                                    You can position your image with these function
-                                </p>
+                                <a href="#">
+                                    <img src="{{ url_for('static', filename='img/me.jpg') }}" alt="..."/ width="300px" class="img-rounded">
+    
+                                    <h4 class="title" style="margin-top: 20px;">Mohammad Fathul'Ibad<br />
+                                        <small>@moaibad</small>
+                                    </h4>
+                                </a>
                             </div>
-                            <div class="content">
-                                <div class="p-2 flex-fill bd-highlight">
-                                    <form id="" action="{{ url_for('move_left') }}" method="POST" enctype="multipart/form-data">
-                                        <button type="submit" class="btn btn-primary">Geser Kiri</button>
-                                    </form>
-                                </div>
-                                <div class="p-2 flex-fill bd-highlight">
-                                    <form id="" action="{{ url_for('move_right') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">Geser Kanan</button>
-                                    </form>
-                                </div>
-                                <div class="p-2 flex-fill bd-highlight">
-                                    <form id="" action="{{ url_for('move_up') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">Geser Atas</button>
-                                    </form>
-                                </div>
-                                <div class="p-2 flex-fill bd-highlight">
-                                    <form id="" action="{{ url_for('move_down') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">Geser Bawah</button>
-                                    </form>
-                                </div>
+
+                            <div style="margin-left: 460px;margin-top: 25px;">
+                                <p>NIM : 211524015</p>
+                                <p>Program Studi : D4 - Teknik Informatika</p>
+                                <p> Kelas : 3A</p>
                             </div>
+                            
+
+                        </div>
+                        
+                        <hr>
+                        <div class="text-center">
+                            <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
+                            <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
+                            <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
+
                         </div>
                     </div>
-
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Your Photo</h4>
-                                <p class="category">This is your photo after processed</p>
-                            </div>
-                            <div class="content">
-                                <p>Uploaded Photo</p>
-                                <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}" alt="image here" style="max-width: 700px;">
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
