@@ -1,21 +1,24 @@
 {% extends "layout.html" %} {% block body %}
 
 <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
+    <div class="sidebar" data-color="blue" data-image="/static/assets/img/sidebar-5.jpg">
+        <!--
 
-        <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
+            Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+            Tip 2: you can also add an image using data-image tag
 
+        -->
 
         <div class="sidebar-wrapper">
             <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text">
-                    Creative Tim
+                    Image Processing
                 </a>
             </div>
 
             <ul class="nav">
                 <li>
-                    <a href="/">
+                    <a href="/index">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
                     </a>
@@ -38,7 +41,7 @@
                         <p>Lighting</p>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="/analyze">
                         <i class="pe-7s-science"></i>
                         <p>Analyze</p>
@@ -56,10 +59,10 @@
                         <p>About</p>
                     </a>
                 </li>
-                <li class="active-pro">
-                    <a href="upgrade.html">
-                        <i class="pe-7s-rocket"></i>
-                        <p>Upgrade to PRO</p>
+                <li class="active">
+                    <a href="/quiz">
+                        <i class="pe-7s-bell"></i>
+                        <p>Quiz</p>
                     </a>
                 </li>
             </ul>
@@ -77,7 +80,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">User</a>
+                    <a class="navbar-brand" href="#">Dashboard</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
@@ -90,8 +93,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-globe"></i>
-                                <b class="caret hidden-sm hidden-xs"></b>
-                                <span class="notification hidden-sm hidden-xs">5</span>
+                                <b class="caret hidden-lg hidden-md"></b>
                                 <p class="hidden-lg hidden-md">
                                     5 Notifications
                                     <b class="caret"></b>
@@ -125,7 +127,6 @@
                                     Dropdown
                                     <b class="caret"></b>
                                 </p>
-
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Action</a></li>
@@ -142,34 +143,46 @@
                                 <p>Log out</p>
                             </a>
                         </li>
-                        <li class="separator hidden-lg hidden-md"></li>
+                        <li class="separator hidden-lg"></li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
-
                         <div class="card">
                             <div class="header">
-                                <h3 class="title">Analyze</h3>
+                                <h4 class="title">Image Crop</h4>
                                 <p class="category">
-                                    You can analyze your image with this histogram
+                                    You can part your photo into pieces here
                                 </p>
                             </div>
                             <div class="content">
-                              <div class="p-2 flex-fill bd-highlight">
-                                <form id="" action="{{ url_for('histogram_rgb') }}" method="POST" enctype="multipart/form-data">
-                                  <button type="submit" class="btn btn-primary">Histogram</button>
-                                </form>
-                              </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    
+                                    <form id="" action="{{ url_for('crop_normal') }}" method="POST" enctype="multipart/form-data">
+                                        <table class="table table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Crop Normal</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input type="number" name="n_value" placeholder="Input Number"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3"><button type="submit" class="btn btn-primary">Crop Image</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="col-md-8">
@@ -180,48 +193,23 @@
                             </div>
                             <div class="content">
                                 <p>Uploaded Photo</p>
-                                <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}"
-                                    alt="image here" style="max-width: 700px;">
+                                <div class="tile-container">
+                                    <div class="row">
+                                        {% for tile_file in tile_files %}
+                                            <div class="col-md-{{ 12 // n }}">
+                                                <div class="tile">
+                                                    <img src="{{ url_for('static', filename='img/tiles/' + tile_file) }}" alt="Tile {{ loop.index }}" width="50px">
+                                                </div>
+                                            </div>
+                                            {% if loop.index % n == 0 %}
+                                                </div><div class="row"> <!-- Close the previous row and start a new one -->
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="card" style="padding: 10px;">
-                        <h2>Histogram</h2>
-
-                        <br>
-
-                        <div class="row">
-                            {% if file_paths[2] %}
-                            <div class="col-md-4 d-flex text-center">
-                                <h3>Red Histogram</h3>
-                                <img class="img-fluid" src="{{ url_for('static', filename=file_paths[0]) }}"
-                                    alt="image here" style="max-width: 400px;">
-                            </div>
-                            <div class="col-md-4 d-flex text-center">
-                                <h3>Green Histogram</h3>
-                                <img class="img-fluid" src="{{ url_for('static', filename=file_paths[1]) }}"
-                                    alt="image here" style="max-width: 400px;">
-                            </div>
-                            <div class="col-md-4 d-flex text-center">
-                                <h3>Blue Histogram</h3>
-                                <img class="img-fluid" src="{{ url_for('static', filename=file_paths[2]) }}"
-                                    alt="image here" style="max-width: 400px;">
-                            </div>
-                            {% else %}
-                            <div class="col d-flex text-center">
-                                <h3>Black Histogram</h3>
-                                <img class="img-fluid" src="{{ url_for('static', filename=file_paths[0]) }}"
-                                alt="image here" style="max-width: 600px;">
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-
-
-
                 </div>
             </div>
         </div>
@@ -231,33 +219,30 @@
                 <nav class="pull-left">
                     <ul>
                         <li>
-                            <a href="#">
-                                Home
-                            </a>
+                            <a href="#"> Home </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Company
-                            </a>
+                            <a href="#"> Company </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Portfolio
-                            </a>
+                            <a href="#"> Portfolio </a>
                         </li>
                         <li>
-                            <a href="#">
-                               Blog
-                            </a>
+                            <a href="#"> Blog </a>
                         </li>
                     </ul>
                 </nav>
                 <p class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                    <a href="http://www.creative-tim.com">Creative Tim</a>, made with love
+                    for a better web
                 </p>
             </div>
         </footer>
-
     </div>
 </div>
+
 {% endblock %}

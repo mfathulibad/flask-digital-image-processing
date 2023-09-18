@@ -7,6 +7,8 @@ from datetime import datetime
 from functools import wraps, update_wrapper
 from shutil import copyfile
 import threading
+import cv2
+import base64
 
 app = Flask(__name__)
 
@@ -63,6 +65,10 @@ def image_filtering():
 def about():
     return render_template('about.html')
 
+@app.route("/quiz")
+@nocache
+def quiz():
+    return render_template('quiz.html')
 
 @app.after_request
 def add_header(r):
@@ -230,6 +236,25 @@ def thresholding():
     image_processing.threshold(lower_thres, upper_thres)
     return render_template("image_filtering.html", file_path="img/img_now.jpg")
 
+@app.route("/crop_normal", methods=["POST"])
+@nocache
+def crop_normal():
+    n_value = request.form.get('n_value')
+    n_value = int(n_value)
 
+    image_processing.crop_normal(n_value)
+    # Define the directory where the image tiles are stored
+    tile_directory = 'static/img/tiles/'
+
+    # List all tile files in the directory
+    tile_files = os.listdir(tile_directory)
+
+    # Sort the tile files by their names (assuming naming convention tile_1.jpg, tile_2.jpg, etc.)
+    tile_files.sort(key=lambda x: int(x.split('_')[1].split('.')[0]))
+
+    return render_template('quiz.html', tile_files=tile_files, n = n_value)
+
+
+    
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
