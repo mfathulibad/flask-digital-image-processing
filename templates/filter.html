@@ -60,9 +60,9 @@
                     </a>
                 </li>
                 <li class="active">
-                    <a href="/quiz">
+                    <a href="/filter">
                         <i class="pe-7s-bell"></i>
-                        <p>Quiz</p>
+                        <p>Filter</p>
                     </a>
                 </li>
             </ul>
@@ -162,46 +162,9 @@
                             </div>
                             <div class="content">
                                 <div class="p-2 flex-fill bd-highlight">
-                                    
-                                    <form id="" action="{{ url_for('crop_normal') }}" method="POST" enctype="multipart/form-data">
-                                        <table class="table table-sm">
-                                            <thead>
-                                                <tr>
-                                                    <th>Crop Normal</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><input type="number" name="n_value" placeholder="Input Number"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3"><button type="submit" class="btn btn-primary">Crop Image</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </form>
-
-                                    <form id="" action="{{ url_for('crop_random') }}" method="POST" enctype="multipart/form-data">
-                                        <table class="table table-sm">
-                                            <thead>
-                                                <tr>
-                                                    <th>Crop Random</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><input type="number" name="n_value" placeholder="Input Number"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3"><button type="submit" class="btn btn-primary">Crop Image</button></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </form>
-
                                     <div class="p-2 flex-fill bd-highlight">
-                                        <form id="" action="{{ url_for('rgb_table') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                            <button type="submit" class="btn btn-primary">RGB Table</button>
+                                        <form id="" action="{{ url_for('identity_kernel') }}" method="POST" enctype="multipart/form-data">
+                                            <button type="submit" class="btn btn-primary">Kernel Identity</button>
                                         </form>
                                     </div>
                                 </div>
@@ -219,16 +182,11 @@
                                 <p>Uploaded Photo</p>
                                 <div class="container mt-4">
                                     <div class="row">
-                                        {% for tile_file in tile_files %}
-                                            <div class="col-auto col-md-{{ 12 // n }}">
-                                                <div class="tile">
-                                                    <img src="{{ url_for('static', filename='img/tiles/' + tile_file) }}" alt="Tile {{ loop.index }}" width="50px">
-                                                </div>
-                                            </div>
-                                            {% if loop.index % n == 0 %}
-                                                </div><div class="row"> <!-- Close the previous row and start a new one -->
-                                            {% endif %}
-                                        {% endfor %}
+                                        <div class="content">
+                                            <p>Uploaded Photo</p>
+                                            <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}"
+                                                alt="image here" style="max-width: 700px;" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>

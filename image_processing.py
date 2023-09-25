@@ -316,7 +316,7 @@ def threshold(lower_thres, upper_thres):
 
 def crop_normal(n):
     # Load the image
-    image = cv2.imread('D:/Kuliah/Semester 5/Pengolahan Citra Digital/Pertemuan 4/flask-digital-image-processing/static/img/img_normal.jpg')
+    image = cv2.imread('static/img/img_normal.jpg')
 
 
     # Get the dimensions of the image
@@ -327,7 +327,7 @@ def crop_normal(n):
     tile_width = width // n
 
     # Define the output directory
-    output_directory = 'D:/Kuliah/Semester 5/Pengolahan Citra Digital/Pertemuan 4/flask-digital-image-processing/static/img/tiles/'
+    output_directory = 'static/img/tiles/'
 
     # Check if the directory exists, and if it does, remove it
     if os.path.exists(output_directory):
@@ -372,4 +372,15 @@ def get_image_dimensions(image_path):
     except Exception as e:
         return None
     
-    
+
+#================================================================================================#
+
+def identity_kernel():
+    img = Image.open("static/img/img_now.jpg")
+    img_arr = np.asarray(img, dtype=int)
+    kernel = np.array([[0, 0, 0],
+                    [0, 1, 0],
+                    [0, 0, 0]])
+    new_arr = convolution(img_arr, kernel)
+    new_img = Image.fromarray(new_arr)
+    new_img.save("static/img/img_now.jpg")

@@ -64,10 +64,10 @@ def image_filtering():
 def about():
     return render_template('about.html')
 
-@app.route("/quiz")
+@app.route("/filter")
 @nocache
 def quiz():
-    return render_template('quiz.html')
+    return render_template('filter.html')
 
 @app.after_request
 def add_header(r):
@@ -286,6 +286,12 @@ def crop_random():
     random.shuffle(tile_files)
 
     return render_template('quiz.html', tile_files=tile_files, n=n_value)
+
+@app.route("/identitykernel", methods=["POST"])
+@nocache
+def identity_kernel():
+    image_processing.identity_kernel()
+    return render_template("filter.html", file_path="img/img_now.jpg")
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
