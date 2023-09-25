@@ -467,4 +467,4 @@ def band_pass_filter():
     bandFilter = np.array([[0,-1,0],[-1,4,-1],[0,-1,0]])
     # apply the band pass filter to the image
     bandFilterImage = cv2.filter2D(image,-1,bandFilter)
-    cv2.imwrite("static/img/img_now.jpg", bandFilter)
+    cv2.imwrite("static/img/img_now.jpg", bandFilterImage)
