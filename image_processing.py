@@ -3,7 +3,6 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import math
 from collections import Counter
-from pylab import savefig
 import cv2
 from skimage import io
 import os
