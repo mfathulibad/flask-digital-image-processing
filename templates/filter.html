@@ -155,25 +155,81 @@
                     <div class="col-md-4">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Image Crop</h4>
+                                <h4 class="title">Positioning</h4>
                                 <p class="category">
-                                    You can part your photo into pieces here
+                                    You can position your image with these function
                                 </p>
                             </div>
                             <div class="content">
                                 <div class="p-2 flex-fill bd-highlight">
-                                    <div class="p-2 flex-fill bd-highlight">
-                                        <form id="" action="{{ url_for('identity_kernel') }}" method="POST" enctype="multipart/form-data">
-                                            <button type="submit" class="btn btn-primary">Kernel Identity</button>
-                                        </form>
-                                    </div>
+                                    <form id="" action="{{ url_for('normal_filter') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">Normal</button>
+                                    </form>
                                 </div>
                                 <div class="p-2 flex-fill bd-highlight">
-                                    <div class="p-2 flex-fill bd-highlight">
-                                        <form id="" action="{{ url_for('mean_filter') }}" method="POST" enctype="multipart/form-data">
-                                            <button type="submit" class="btn btn-primary">Mean Filter</button>
-                                        </form>
-                                    </div>
+                                    <form id="" action="{{ url_for('identity_kernel') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">Identity Kernel</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('mean_filter') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">Mean Filter</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('blur_filter_5x5') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">Blur Filter 5x5</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('gaussian_blur_5x5') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">Gaussian Blur 5x5</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('gaussian_blur_25x25') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">Gaussian Blur 25x25</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('median_blur_5x5') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">Median Blur 5x5</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('median_blur_25x25') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">Median Blur 25x25</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('sharpening2') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">Sharpening</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('bilateral_filter') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">Bilateral Filter</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('zero_padding') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">Zero Padding</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('low_pass_filter') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">Low Pass Filter</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('high_pass_filter') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">High Pass Filter</button>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('band_pass_filter') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">Band Pass Filter</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
