@@ -293,5 +293,11 @@ def identity_kernel():
     image_processing.identity_kernel()
     return render_template("filter.html", file_path="img/img_now.jpg")
 
+@app.route("/mean_filter", methods=["POST"])
+@nocache
+def mean_filter():
+    image_processing.mean_filter()
+    return render_template("filter.html", file_path="img/img_now.jpg")
+
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")

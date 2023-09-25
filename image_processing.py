@@ -384,3 +384,11 @@ def identity_kernel():
     new_arr = convolution(img_arr, kernel)
     new_img = Image.fromarray(new_arr)
     new_img.save("static/img/img_now.jpg")
+
+def mean_filter():
+    img = Image.open("static/img/img_now.jpg")
+    img_arr = np.asarray(img, dtype=int)
+    kernel = np.ones((3, 3), np.float32) / 9
+    new_arr = convolution(img_arr, kernel)
+    new_img = Image.fromarray(new_arr)
+    new_img.save("static/img/img_now.jpg")
