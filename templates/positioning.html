@@ -9,7 +9,7 @@
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a href="http://www.creative-tim.com" class="simple-text">
-                        Creative Tim
+                        Image Processing
                     </a>
                 </div>
     
@@ -35,19 +35,13 @@
                     <li>
                         <a href="/lighting">
                             <i class="pe-7s-news-paper"></i>
-                            <p>Lighting</p>
+                            <p>Contrast</p>
                         </a>
                     </li>
                     <li>
                         <a href="/analyze">
                             <i class="pe-7s-science"></i>
                             <p>Analyze</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/image_filtering">
-                            <i class="pe-7s-map-marker"></i>
-                            <p>Image Filtering</p>
                         </a>
                     </li>
                     <li>
@@ -198,8 +192,30 @@
                                 <p class="category">This is your photo after processed</p>
                             </div>
                             <div class="content">
-                                <p>Uploaded Photo</p>
-                                <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}" alt="image here" style="max-width: 700px;">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="container mt-4">
+                                            <div class="row">
+                                                <div class="content">
+                                                    <h3>Original Image</h3>
+                                                    <img class="img-fluid" src="{{ url_for('static', filename='img/img_normal.jpg') }}"
+                                                        alt="image here" style="max-width: 700px;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="container mt-4">
+                                            <div class="row">
+                                                <div class="content">
+                                                    <h3>Processed Image</h3>
+                                                    <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}"
+                                                        alt="image here" style="max-width: 700px;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                                                                      
                             </div>
                         </div>
                     </div>

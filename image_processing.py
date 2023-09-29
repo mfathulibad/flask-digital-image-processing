@@ -235,15 +235,6 @@ def blur():
     new_img.save("static/img/img_now.jpg")
 
 
-def sharpening():
-    img = Image.open("static/img/img_now.jpg")
-    img_arr = np.asarray(img, dtype=int)
-    kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
-    new_arr = convolution(img_arr, kernel)
-    new_img = Image.fromarray(new_arr)
-    new_img.save("static/img/img_now.jpg")
-
-
 def histogram_rgb():
     img_path = "static/img/img_now.jpg"
     img = Image.open(img_path)
@@ -384,44 +375,7 @@ def identity_kernel():
     identity = cv2.filter2D(src=image, ddepth=-1, kernel=kernel)
     cv2.imwrite("static/img/img_now.jpg", identity)
 
-def mean_filter():
-    image_0 = io.imread("static/img/img_now.jpg")
-    image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
-    kernel = np.ones((3, 3), np.float32) / 9
-    blur = cv2.filter2D(src=image, ddepth=-1, kernel=kernel)
-    cv2.imwrite("static/img/img_now.jpg", blur)
-
-def blur_filter_5x5():
-    image_0 = io.imread("static/img/img_now.jpg")
-    image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
-    cv_blur = cv2.blur(src=image, ksize=(5,5))
-    cv2.imwrite("static/img/img_now.jpg", cv_blur)
-
-def gaussian_blur_5x5():
-    image_0 = io.imread("static/img/img_now.jpg")
-    image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
-    cv_gaussianblur_5 = cv2.GaussianBlur(src=image,ksize=(5,5),sigmaX=0)
-    cv2.imwrite("static/img/img_now.jpg", cv_gaussianblur_5)
-
-def gaussian_blur_25x25():
-    image_0 = io.imread("static/img/img_now.jpg")
-    image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
-    cv_gaussianblur_25 = cv2.GaussianBlur(src=image,ksize=(25,25),sigmaX=0)
-    cv2.imwrite("static/img/img_now.jpg", cv_gaussianblur_25)
-
-def median_blur_5x5():
-    image_0 = io.imread("static/img/img_now.jpg")
-    image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
-    cv_median_5 = cv2.medianBlur(src=image, ksize=5)
-    cv2.imwrite("static/img/img_now.jpg", cv_median_5)
-
-def median_blur_25x25():
-    image_0 = io.imread("static/img/img_now.jpg")
-    image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
-    cv_median_25 = cv2.medianBlur(src=image, ksize=25)
-    cv2.imwrite("static/img/img_now.jpg", cv_median_25)
-
-def sharpening2():
+def sharpening():
     image_0 = io.imread("static/img/img_now.jpg")
     image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
     kernel = np.array([[0, -1, 0],
@@ -442,29 +396,55 @@ def zero_padding():
     zero_padding = cv2.copyMakeBorder(image, 1, 1, 1, 1, cv2.BORDER_CONSTANT, value=0)
     cv2.imwrite("static/img/img_now.jpg", zero_padding)
 
-def low_pass_filter():
+def low_pass_filter(ksize):
     image_0 = io.imread("static/img/img_now.jpg")
     image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
-    # create the low pass filter
-    lowFilter = np.ones((3,3),np.float32)/9
-    # apply the low pass filter to the image
+    
+    lowFilter = np.ones((ksize,ksize),np.float32)/9
     lowFilterImage = cv2.filter2D(image,-1,lowFilter)
     cv2.imwrite("static/img/img_now.jpg", lowFilterImage)
 
-def high_pass_filter():
+def high_pass_filter(ksize):
     image_0 = io.imread("static/img/img_now.jpg")
     image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
-    # create the high pass filter
-    highFilter = np.array([[-1,-1,-1],[-1,8,-1],[-1,-1,-1]])
-    # apply the high pass filter to the image
-    highFilterImage = cv2.filter2D(image,-1,highFilter)
-    cv2.imwrite("static/img/img_now.jpg", highFilterImage)
 
-def band_pass_filter():
+    lowFilter = np.ones((ksize, ksize), np.float32) / (ksize * ksize)
+    lowFilterImage = cv2.filter2D(image, -1, lowFilter)
+    
+    highPassImage = image - lowFilterImage
+    cv2.imwrite("static/img/img_now.jpg", highPassImage)
+
+def band_pass_filter(ksize_low, ksize_high):
     image_0 = io.imread("static/img/img_now.jpg")
     image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
-    # create the band pass filter
-    bandFilter = np.array([[0,-1,0],[-1,4,-1],[0,-1,0]])
-    # apply the band pass filter to the image
-    bandFilterImage = cv2.filter2D(image,-1,bandFilter)
-    cv2.imwrite("static/img/img_now.jpg", bandFilterImage)
+    
+    lowFilter = np.ones((ksize_low, ksize_low), np.float32) / (ksize_low * ksize_low)
+    lowFilterImage = cv2.filter2D(image, -1, lowFilter)
+    highFilter = np.ones((ksize_high, ksize_high), np.float32) / (ksize_high * ksize_high)
+    highPassImage = image - cv2.filter2D(lowFilterImage, -1, highFilter)
+    
+    cv2.imwrite("static/img/img_now.jpg", highPassImage)
+
+def blur_filter(ksize):
+    image_0 = io.imread("static/img/img_now.jpg")
+    image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
+    cv_blur = cv2.blur(src=image, ksize=(ksize,ksize))
+    cv2.imwrite("static/img/img_now.jpg", cv_blur)
+
+def mean_filter(ksize):
+    image_0 = io.imread("static/img/img_now.jpg")
+    image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
+    kernel = np.ones((ksize, ksize), np.float32) / 9
+    blur = cv2.filter2D(src=image, ddepth=-1, kernel=kernel)
+    cv2.imwrite("static/img/img_now.jpg", blur)
+
+def median_blur(ksize):
+    image = cv2.imread("static/img/img_now.jpg")
+    cv_median = cv2.medianBlur(image, ksize)
+    cv2.imwrite("static/img/img_now.jpg", cv_median)
+
+def gaussian_blur(ksize):
+    image = cv2.imread("static/img/img_now.jpg")
+    cv_gaussian = cv2.GaussianBlur(image, (ksize, ksize), 0)
+    cv2.imwrite("static/img/img_now.jpg", cv_gaussian)
+    

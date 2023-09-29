@@ -38,19 +38,13 @@
                 <li>
                     <a href="/lighting">
                         <i class="pe-7s-news-paper"></i>
-                        <p>Lighting</p>
+                        <p>Contrast</p>
                     </a>
                 </li>
                 <li>
                     <a href="/analyze">
                         <i class="pe-7s-science"></i>
                         <p>Analyze</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="/image_filtering">
-                        <i class="pe-7s-map-marker"></i>
-                        <p>Image Filtering</p>
                     </a>
                 </li>
                 <li class="active">
@@ -155,12 +149,13 @@
                     <div class="col-md-4">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Filter</h4>
+                                <h2 class="title">Image Filtering</h2>
                                 <p class="category">
-                                    You can position filter image with these function
+                                    <h5><p>You can apply filter to your image</p></h5>
                                 </p>
                             </div>
                             <div class="content">
+                                <h4 class="title" style="margin-top:20px">Reset to Normal</h4>
                                 <div class="p-2 flex-fill bd-highlight">
                                     <form id="" action="{{ url_for('normal_filter') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
                                         <button type="submit" class="btn btn-primary">Normal</button>
@@ -171,38 +166,42 @@
                                         <button type="submit" class="btn btn-primary">Identity Kernel</button>
                                     </form>
                                 </div>
+                                <h4 class="title" style="margin-top:20px">Enhanching Filter</h4>    
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('blur_filter') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Blur Filter</button>
+                                            <input type="number" id="blur-filter" name="blur-filter" placeholder="Ukuran Kernel" required style="margin-left:10px">                                  
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="gaussian-blur-form" action="{{ url_for('gaussian_blur') }}" method="POST" enctype="multipart/form-data">
+                                            <button type="submit" class="btn btn-primary">Gaussian Filter</button>
+                                            <input type="number" id="gaussian-blur" name="gaussian-blur" placeholder="Ukuran Kernel" required style="margin-left:10px">
+                                    </form>
+                                </div>
+
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="median-blur-form" action="{{ url_for('median_blur') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Median Filter</button>
+                                            <input type="number" id="median-blur" name="median-blur" placeholder="Ukuran Kernel" required style="margin-left:10px">
+                                        </div>
+                                    </form>
+                                </div>
+
                                 <div class="p-2 flex-fill bd-highlight">
                                     <form id="" action="{{ url_for('mean_filter') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">Mean Filter</button>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Mean Filter</button>
+                                            <input type="number" id="mean-filter" name="mean-filter" placeholder="Ukuran Kernel" required style="margin-left:10px">                                  
+                                        </div>
                                     </form>
                                 </div>
+
                                 <div class="p-2 flex-fill bd-highlight">
-                                    <form id="" action="{{ url_for('blur_filter_5x5') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">Blur Filter 5x5</button>
-                                    </form>
-                                </div>
-                                <div class="p-2 flex-fill bd-highlight">
-                                    <form id="" action="{{ url_for('gaussian_blur_5x5') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">Gaussian Blur 5x5</button>
-                                    </form>
-                                </div>
-                                <div class="p-2 flex-fill bd-highlight">
-                                    <form id="" action="{{ url_for('gaussian_blur_25x25') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">Gaussian Blur 25x25</button>
-                                    </form>
-                                </div>
-                                <div class="p-2 flex-fill bd-highlight">
-                                    <form id="" action="{{ url_for('median_blur_5x5') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">Median Blur 5x5</button>
-                                    </form>
-                                </div>
-                                <div class="p-2 flex-fill bd-highlight">
-                                    <form id="" action="{{ url_for('median_blur_25x25') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">Median Blur 25x25</button>
-                                    </form>
-                                </div>
-                                <div class="p-2 flex-fill bd-highlight">
-                                    <form id="" action="{{ url_for('sharpening2') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                    <form id="" action="{{ url_for('sharpening') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
                                         <button type="submit" class="btn btn-primary">Sharpening</button>
                                     </form>
                                 </div>
@@ -211,26 +210,71 @@
                                         <button type="submit" class="btn btn-primary">Bilateral Filter</button>
                                     </form>
                                 </div>
+
+
+                                <h4 class="title" style="margin-top:20px">Add Border</h4>
                                 <div class="p-2 flex-fill bd-highlight">
                                     <form id="" action="{{ url_for('zero_padding') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
                                         <button type="submit" class="btn btn-primary">Zero Padding</button>
                                     </form>
                                 </div>
+                                <h4 class="title" style="margin-top:20px">Frequency Filter</h4>
                                 <div class="p-2 flex-fill bd-highlight">
                                     <form id="" action="{{ url_for('low_pass_filter') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">Low Pass Filter</button>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Lowpass Filter</button>
+                                            <input type="number" id="low-pass-filter" name="low-pass-filter" placeholder="Ukuran Kernel" required style="margin-left:10px">
+                                        </div>
                                     </form>
                                 </div>
                                 <div class="p-2 flex-fill bd-highlight">
                                     <form id="" action="{{ url_for('high_pass_filter') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">High Pass Filter</button>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Highpass Filter</button>
+                                            <input type="number" id="high-pass-filter" name="high-pass-filter" placeholder="Ukuran Kernel" required style="margin-left:10px">                                  
+                                        </div>
                                     </form>
                                 </div>
                                 <div class="p-2 flex-fill bd-highlight">
                                     <form id="" action="{{ url_for('band_pass_filter') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
-                                        <button type="submit" class="btn btn-primary">Band Pass Filter</button>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Bandpass Filter</button>
+                                            <input type="number" id="band-pass-filter" name="high-pass-filter" placeholder="Lowpass Kernel" required style="margin-left:10px">
+                                            <input type="number" id="band-pass-filter" name="low-pass-filter" placeholder="Highpass Kernel" required>
+                                        </div>
                                     </form>
                                 </div>
+
+                                <h4 class="title" style="margin-top:20px">Edge Detection</h4>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('edge_detection') }}" method="POST" enctype="multipart/form-data" style="margin-top:20px">
+                                        <button type="submit" class="btn btn-primary">Edge Detection</button>
+                                    </form>
+                                </div>
+
+                                <h4 class="title" style="margin-top:20px">Segmentation</h4>  
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <form id="" action="{{ url_for('thresholding') }}" method="POST" enctype="multipart/form-data">
+                                        <table class="table table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Batas Bawah</th>
+                                                    <th>Batas Atas</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input type="number" name="lower_thres" placeholder="0-255"></td>
+                                                    <td><input type="number" name="upper_thres" placeholder="0-255"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3"><button type="submit" class="btn btn-primary">Thresholding</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </form>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -242,16 +286,30 @@
                                 <p class="category">This is your photo after processed</p>
                             </div>
                             <div class="content">
-                                <p>Uploaded Photo</p>
-                                <div class="container mt-4">
-                                    <div class="row">
-                                        <div class="content">
-                                            <p>Uploaded Photo</p>
-                                            <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}"
-                                                alt="image here" style="max-width: 700px;" />
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="container mt-4">
+                                            <div class="row">
+                                                <div class="content">
+                                                    <h3>Original Image</h3>
+                                                    <img class="img-fluid" src="{{ url_for('static', filename='img/img_normal.jpg') }}"
+                                                        alt="image here" style="max-width: 700px;" />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="col">
+                                        <div class="container mt-4">
+                                            <div class="row">
+                                                <div class="content">
+                                                    <h3>Processed Image</h3>
+                                                    <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}"
+                                                        alt="image here" style="max-width: 700px;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                                                                      
                             </div>
                         </div>
                     </div>
@@ -289,5 +347,33 @@
         </footer>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Menambahkan event listener untuk formulir Gaussian Blur
+        var gaussianBlurForm = document.getElementById("gaussian-blur-form");
+        gaussianBlurForm.addEventListener("submit", function (event) {
+            var inputField = document.getElementById("gaussian-blur");
+            var inputValue = parseInt(inputField.value);
+
+            if (inputValue % 2 === 0) {
+                alert("Ukuran Kernel Gaussian Blur harus bilangan ganjil!");
+                event.preventDefault();
+            }
+        });
+
+        // Menambahkan event listener untuk formulir Median Blur
+        var medianBlurForm = document.getElementById("median-blur-form");
+        medianBlurForm.addEventListener("submit", function (event) {
+            var inputField = document.getElementById("median-blur");
+            var inputValue = parseInt(inputField.value);
+
+            if (inputValue % 2 === 0) {
+                alert("Ukuran Kernel Median Blur harus bilangan ganjil!");
+                event.preventDefault();
+            }
+        });
+    });
+</script>
 
 {% endblock %}

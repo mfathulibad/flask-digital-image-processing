@@ -192,7 +192,7 @@ def histogram_equalizer():
 @nocache
 def edge_detection():
     image_processing.edge_detection()
-    return render_template("image_filtering.html", file_path="img/img_now.jpg")
+    return render_template("filter.html", file_path="img/img_now.jpg")
 
 
 @app.route("/blur", methods=["POST"])
@@ -206,7 +206,7 @@ def blur():
 @nocache
 def sharpening():
     image_processing.sharpening()
-    return render_template("image_filtering.html", file_path="img/img_now.jpg")
+    return render_template("filter.html", file_path="img/img_now.jpg")
 
 
 @app.route("/histogram_rgb", methods=["POST"])
@@ -233,7 +233,7 @@ def thresholding():
     lower_thres = int(request.form['lower_thres'])
     upper_thres = int(request.form['upper_thres'])
     image_processing.threshold(lower_thres, upper_thres)
-    return render_template("image_filtering.html", file_path="img/img_now.jpg")
+    return render_template("filter.html", file_path="img/img_now.jpg")
 
 @app.route("/crop_normal", methods=["POST"])
 @nocache
@@ -293,48 +293,6 @@ def identity_kernel():
     image_processing.identity_kernel()
     return render_template("filter.html", file_path="img/img_now.jpg")
 
-@app.route("/mean_filter", methods=["POST"])
-@nocache
-def mean_filter():
-    image_processing.mean_filter()
-    return render_template("filter.html", file_path="img/img_now.jpg")
-
-@app.route("/blur_filter_5x5", methods=["POST"])
-@nocache
-def blur_filter_5x5():
-    image_processing.blur_filter_5x5()
-    return render_template("filter.html", file_path="img/img_now.jpg")
-
-@app.route("/gaussian_blur_5x5", methods=["POST"])
-@nocache
-def gaussian_blur_5x5():
-    image_processing.gaussian_blur_5x5()
-    return render_template("filter.html", file_path="img/img_now.jpg")
-
-@app.route("/gaussian_blur_25x25", methods=["POST"])
-@nocache
-def gaussian_blur_25x25():
-    image_processing.gaussian_blur_25x25()
-    return render_template("filter.html", file_path="img/img_now.jpg")
-
-@app.route("/median_blur_5x5", methods=["POST"])
-@nocache
-def median_blur_5x5():
-    image_processing.median_blur_5x5()
-    return render_template("filter.html", file_path="img/img_now.jpg")
-
-@app.route("/median_blur_25x25", methods=["POST"])
-@nocache
-def median_blur_25x25():
-    image_processing.median_blur_25x25()
-    return render_template("filter.html", file_path="img/img_now.jpg")
-
-@app.route("/sharpening2", methods=["POST"])
-@nocache
-def sharpening2():
-    image_processing.sharpening2()
-    return render_template("filter.html", file_path="img/img_now.jpg")
-
 @app.route("/bilateral_filter", methods=["POST"])
 @nocache
 def bilateral_filter():
@@ -356,19 +314,51 @@ def zero_padding():
 @app.route("/low_pass_filter", methods=["POST"])
 @nocache
 def low_pass_filter():
-    image_processing.low_pass_filter()
+    ksize = int(request.form["low-pass-filter"])
+    image_processing.low_pass_filter(ksize)
     return render_template("filter.html", file_path="img/img_now.jpg")
 
 @app.route("/high_pass_filter", methods=["POST"])
 @nocache
 def high_pass_filter():
-    image_processing.high_pass_filter()
+    ksize = int(request.form["high-pass-filter"])
+    image_processing.high_pass_filter(ksize)
     return render_template("filter.html", file_path="img/img_now.jpg")
 
 @app.route("/band_pass_filter", methods=["POST"])
 @nocache
 def band_pass_filter():
-    image_processing.band_pass_filter()
+    ksize_low = int(request.form["low-pass-filter"])
+    ksize_high = int(request.form["high-pass-filter"])
+    image_processing.band_pass_filter(ksize_low, ksize_high)
+    return render_template("filter.html", file_path="img/img_now.jpg")
+
+@app.route("/blur_filter", methods=["POST"])
+@nocache
+def blur_filter():
+    ksize = int(request.form["blur-filter"])
+    image_processing.blur_filter(ksize)
+    return render_template("filter.html", file_path="img/img_now.jpg")
+
+@app.route("/mean_filter", methods=["POST"])
+@nocache
+def mean_filter():
+    ksize = int(request.form["mean-filter"])
+    image_processing.mean_filter(ksize)
+    return render_template("filter.html", file_path="img/img_now.jpg")
+
+@app.route("/median_blur", methods=["POST"])
+@nocache
+def median_blur():
+    ksize = int(request.form["median-blur"])
+    image_processing.median_blur(ksize)
+    return render_template("filter.html", file_path="img/img_now.jpg")
+
+@app.route("/gaussian_blur", methods=["POST"])
+@nocache
+def gaussian_blur():
+    ksize = int(request.form["gaussian-blur"])
+    image_processing.gaussian_blur(ksize)
     return render_template("filter.html", file_path="img/img_now.jpg")
 
 if __name__ == '__main__':
