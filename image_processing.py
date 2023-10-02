@@ -152,6 +152,7 @@ def move_down():
 
 def brightness_addition():
     img = Image.open("static/img/img_now.jpg")
+    img = img.convert("RGB")
     img_arr = np.asarray(img).astype('uint16')
     img_arr = img_arr+100
     img_arr = np.clip(img_arr, 0, 255)
@@ -162,6 +163,7 @@ def brightness_addition():
 
 def brightness_substraction():
     img = Image.open("static/img/img_now.jpg")
+    img = img.convert("RGB")
     img_arr = np.asarray(img).astype('int16')
     img_arr = img_arr-100
     img_arr = np.clip(img_arr, 0, 255)
@@ -172,6 +174,7 @@ def brightness_substraction():
 
 def brightness_multiplication():
     img = Image.open("static/img/img_now.jpg")
+    img = img.convert("RGB")
     img_arr = np.asarray(img)
     img_arr = img_arr*1.25
     img_arr = np.clip(img_arr, 0, 255)
@@ -182,6 +185,7 @@ def brightness_multiplication():
 
 def brightness_division():
     img = Image.open("static/img/img_now.jpg")
+    img = img.convert("RGB")
     img_arr = np.asarray(img)
     img_arr = img_arr/1.25
     img_arr = np.clip(img_arr, 0, 255)
@@ -290,6 +294,7 @@ def histogram_equalizer():
 
 def threshold(lower_thres, upper_thres):
     img = Image.open("static/img/img_now.jpg")
+    img = img.convert("RGB")
     img_arr = np.asarray(img)
 
     # Check if the array is read-only, and if so, make it writable
@@ -448,3 +453,63 @@ def gaussian_blur(ksize):
     cv_gaussian = cv2.GaussianBlur(image, (ksize, ksize), 0)
     cv2.imwrite("static/img/img_now.jpg", cv_gaussian)
     
+def game():
+    image = cv2.imread("static/img/img_normal.jpg")
+
+    # ================== Greyscale ==================
+    if is_grey_scale("static/img/img_normal.jpg"):
+        return
+    else:
+        img_arr = np.asarray(image)
+        r = img_arr[:, :, 0]
+        g = img_arr[:, :, 1]
+        b = img_arr[:, :, 2]
+        new_arr = r.astype(int) + g.astype(int) + b.astype(int)
+        new_arr = (new_arr/3).astype('uint8')
+        new_img = Image.fromarray(new_arr)
+        new_img.save("static/img/cocoki/greyscale.jpg")
+
+    # ================== Move Left ==================
+    img_arr = np.asarray(image)
+    r, g, b = img_arr[:, :, 0], img_arr[:, :, 1], img_arr[:, :, 2]
+    r = np.pad(r, ((0, 0), (0, 50)), 'constant')[:, 50:]
+    g = np.pad(g, ((0, 0), (0, 50)), 'constant')[:, 50:]
+    b = np.pad(b, ((0, 0), (0, 50)), 'constant')[:, 50:]
+    new_arr = np.dstack((r, g, b))
+    new_img = Image.fromarray(new_arr)
+    new_img.save("static/img/cocoki/image_left.jpg")
+
+    # ================== Median Filter ==================
+    cv_median = cv2.medianBlur(image, 9)
+    cv2.imwrite("static/img/cocoki/median.jpg", cv_median)
+
+    # ================== Edge Detection ==================
+    img_arr = np.asarray(image, dtype=int)
+    kernel = np.array([[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]])
+    new_arr = convolution(img_arr, kernel)
+    new_img = Image.fromarray(new_arr)
+    new_img.save("static/img/cocoki/edge_detection.jpg")
+
+    # ================== Sharpening ==================
+    image_0 = io.imread("static/img/img_now.jpg")
+    image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
+    kernel = np.array([[0, -1, 0],
+                   [-1, 5, -1],
+                   [0, -1, 0]])
+    sharp = cv2.filter2D(src=image, ddepth=-1, kernel=kernel)
+    cv2.imwrite("static/img/cocoki/sharpening.jpg", sharp)
+
+    # ================== Low Pass Filter ==================
+    image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
+    lowFilter = np.ones((5,5),np.float32)/9
+    lowFilterImage = cv2.filter2D(image,-1,lowFilter)
+    cv2.imwrite("static/img/cocoki/low_pass.jpg", lowFilterImage)
+
+    # ================== Band Pass Filter ==================
+    image = cv2.cvtColor(image_0, cv2.COLOR_BGR2RGB)
+    
+    lowFilter = np.ones((3, 3), np.float32) / (3 * 3)
+    lowFilterImage = cv2.filter2D(image, -1, lowFilter)
+    highFilter = np.ones((5, 5), np.float32) / (5 * 5)
+    highPassImage = image - cv2.filter2D(lowFilterImage, -1, highFilter)
+    cv2.imwrite("static/img/cocoki/band_pass.jpg", highPassImage)

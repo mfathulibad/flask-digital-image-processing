@@ -152,38 +152,35 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Upload a Photo</h4>
+                                <h1 class="title">Cocoki Nih</h1>
                                 <p class="category">
                                     Please update a photo before using the services
                                 </p>
                             </div>
                             <div class="content">
-                                <form id="" action="{{ url_for('upload') }}" method="POST"
-                                    enctype="multipart/form-data">
-                                    <label class="form-label" for="customFile">Please Insert Photo</label>
-                                    <input name="file" class="form-control" type="file" id="customFile"
-                                        accept="image/*" />
-                                    <button type="submit" class="btn btn-primary" style="margin-top: 10px">
-                                        Upload
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                                <h3>Score: <span id="score">0</span></h3>
 
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Your Photo</h4>
-                                <p class="category">This is your photo after processed</p>
-                            </div>
-                            <div class="content">
-                                <h3>Uploaded Photo</h3>
-                                <img class="img-fluid" src="{{ url_for('static', filename='img/img_now.jpg') }}"
-                                    alt="image here" style="max-width: 700px;" />
+                                <div class="row">
+                                    {% for photo in photos %}
+                                    <div class="col-md-4" onclick="flipImage(this)" data-new-image="{{ photo_folder }}/{{ photo.filename }}">
+                                        <img class="game-img" id="{{ photo.filename }}"
+                                            src="/static/img/me.jpg" alt="Random Photo"
+                                            style="height: 300px; margin: 30px;">
+                                    </div>
+                                    {% endfor %}
+
+                                    {% for photo in photos2 %}
+                                    <div class="col-md-4" onclick="flipImage(this)" data-new-image="{{ photo_folder }}/{{ photo.filename }}">
+                                        <img class="game-img" id="{{ photo.filename }}"
+                                            src="/static/img/me.jpg" alt="Random Photo"
+                                            style="height: 300px; margin: 30px;">
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -221,5 +218,51 @@
         </footer>
     </div>
 </div>
+
+<script>
+    var clickedImages = []; // Array untuk menyimpan gambar yang telah diklik
+    var score = 0; // Skor awal
+
+    function flipImage(element) {
+        var imageId = element.querySelector("img").id;
+        var newImage = element.getAttribute("data-new-image");
+
+        clickedImages.push(imageId); // Tambahkan ID gambar ke dalam array
+        // Tukar gambar
+        if (newImage) {
+            element.querySelector("img").src = newImage;
+
+            // Cek apakah ada dua gambar yang memiliki ID yang sama
+            if (clickedImages.length === 2) {
+                if (clickedImages[0] === clickedImages[1]) {
+                    // Jika ID kedua gambar sama, tambahkan skor
+                    score += 1;
+                    document.getElementById("score").textContent = score;
+                    console.log(clickedImages[0] + " " + clickedImages[1] + " Berhasil")
+
+                    // Reset array clickedImages setelah 2 gambar telah diklik
+                    clickedImages = [];
+                } else {
+                    // Jika ID kedua gambar berbeda, kembalikan gambar ke aslinya
+                    setTimeout(function () {
+                        var prevElement1 = document.querySelector("[id='" + clickedImages[0] + "']").parentElement;
+                        var prevElement2 = document.querySelector("[id='" + clickedImages[1] + "']").parentElement;
+                        prevElement1.querySelector("img").src = prevElement1.getAttribute("data-new-image");
+                        prevElement2.querySelector("img").src = prevElement2.getAttribute("data-new-image");
+                        console.log(clickedImages[0] + " " + clickedImages[1] + " Gagal")
+                        clickedImages = []; // Reset array clickedImages
+                    }, 1000); // Tunggu 1 detik sebelum mengembalikan gambar ke aslinya
+                }
+            }
+        } else {
+            // Simpan gambar asli dalam atribut data-new-image
+            element.setAttribute("data-new-image", element.querySelector("img").src);
+        }
+    }
+
+</script>
+
+
+
 
 {% endblock %}

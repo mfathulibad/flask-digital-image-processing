@@ -69,6 +69,22 @@ def about():
 def quiz():
     return render_template('filter.html')
 
+@app.route("/game")
+@nocache
+def game():
+
+    photo_folder = 'static/img/cocoki'
+    photos = os.listdir(photo_folder)
+
+    random.shuffle(photos)
+    photo_data = [{'id': idx, 'filename': photo} for idx, photo in enumerate(photos)]
+
+    random.shuffle(photos)
+    photo_data2 = [{'id': idx, 'filename': photo} for idx, photo in enumerate(photos)]
+
+    return render_template('game.html', photos=photo_data, photos2=photo_data2, photo_folder=photo_folder)
+
+
 @app.after_request
 def add_header(r):
     """
@@ -94,6 +110,8 @@ def upload():
     for file in request.files.getlist("file"):
         file.save("static/img/img_now.jpg")
     copyfile("static/img/img_now.jpg", "static/img/img_normal.jpg")
+
+    image_processing.game()
     return render_template("dashboard.html", file_path="img/img_now.jpg")
 
 
