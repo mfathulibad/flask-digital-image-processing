@@ -165,18 +165,20 @@
 
                                 <div class="row">
                                     {% for photo in photos %}
-                                    <div class="col-md-4" onclick="flipImage(this)" data-ori="{{ photo_folder }}/{{ photo.filename }}" data-new-image="/static/img/me.jpg">
+                                    <div class="col-md-4" onclick="flipImage(this)" data-ori="/static/img/star.png" data-new-image="{{ photo_folder }}/{{ photo.filename }}">
                                         <img class="game-img" id="{{ photo.filename }}"
-                                            src="{{ photo_folder }}/{{ photo.filename }}" alt="Random Photo"
-                                            style="height: 300px; margin: 30px;">
+                                            src="/static/img/star.png" alt="Random Photo"
+                                            style="height: 200px; margin: 30px;">
+                                        <p>{{ photo.filename }}</p>
                                     </div>
                                     {% endfor %}
 
                                     {% for photo in photos %}
-                                    <div class="col-md-4" onclick="flipImage(this)" data-ori="{{ photo_folder }}/{{ photo.filename }}" data-new-image="/static/img/me.jpg">
+                                    <div class="col-md-4" onclick="flipImage(this)" data-ori="/static/img/star.png" data-new-image="{{ photo_folder }}/{{ photo.filename }}">
                                         <img class="game-img" id="{{ photo.filename }}"
-                                            src="{{ photo_folder }}/{{ photo.filename }}" alt="Random Photo"
-                                            style="height: 300px; margin: 30px;">
+                                            src="/static/img/star.png" alt="Random Photo"
+                                            style="height: 200px; margin: 30px;">
+                                        <p>{{ photo.filename }}</p>
                                     </div>
                                     {% endfor %}
                                 </div>
