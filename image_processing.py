@@ -479,6 +479,39 @@ def game():
     new_img = Image.fromarray(new_arr)
     new_img.save("static/img/cocoki/image_left.jpg")
 
+    # ================== Move Right ==================
+    img_arr = np.asarray(image)
+    r, g, b = img_arr[:, :, 0], img_arr[:, :, 1], img_arr[:, :, 2]
+    r = np.pad(r, ((0, 0), (50, 0)), 'constant')[:, :-50]
+    g = np.pad(g, ((0, 0), (50, 0)), 'constant')[:, :-50]
+    b = np.pad(b, ((0, 0), (50, 0)), 'constant')[:, :-50]
+    new_arr = np.dstack((r, g, b))
+    new_img = Image.fromarray(new_arr)
+    new_img.save("static/img/cocoki/image_right.jpg")
+
+    # ================== Move Up ==================
+    img = Image.open("static/img/img_now.jpg")
+    img_arr = np.asarray(image)
+    r, g, b = img_arr[:, :, 0], img_arr[:, :, 1], img_arr[:, :, 2]
+    r = np.pad(r, ((0, 50), (0, 0)), 'constant')[50:, :]
+    g = np.pad(g, ((0, 50), (0, 0)), 'constant')[50:, :]
+    b = np.pad(b, ((0, 50), (0, 0)), 'constant')[50:, :]
+    new_arr = np.dstack((r, g, b))
+    new_img = Image.fromarray(new_arr)
+    new_img.save("static/img/cocoki/image_up.jpg")
+
+
+    # ================== Move Down ==================
+    img_arr = np.asarray(image)
+    r, g, b = img_arr[:, :, 0], img_arr[:, :, 1], img_arr[:, :, 2]
+    r = np.pad(r, ((50, 0), (0, 0)), 'constant')[0:-50, :]
+    g = np.pad(g, ((50, 0), (0, 0)), 'constant')[0:-50, :]
+    b = np.pad(b, ((50, 0), (0, 0)), 'constant')[0:-50, :]
+    new_arr = np.dstack((r, g, b))
+    new_img = Image.fromarray(new_arr)
+    new_img.save("static/img/cocoki/image_down.jpg")
+
+
     # ================== Median Filter ==================
     cv_median = cv2.medianBlur(image, 9)
     cv2.imwrite("static/img/cocoki/median.jpg", cv_median)
@@ -513,3 +546,47 @@ def game():
     highFilter = np.ones((5, 5), np.float32) / (5 * 5)
     highPassImage = image - cv2.filter2D(lowFilterImage, -1, highFilter)
     cv2.imwrite("static/img/cocoki/band_pass.jpg", highPassImage)
+
+
+    # brightness_addition():
+    img = Image.open("static/img/img_now.jpg")
+    img = img.convert("RGB")
+    img_arr = np.asarray(img).astype('uint16')
+    img_arr = img_arr+100
+    img_arr = np.clip(img_arr, 0, 255)
+    new_arr = img_arr.astype('uint8')
+    new_img = Image.fromarray(new_arr)
+    new_img.save("static/img/cocoki/brightness_addition.jpg")
+
+
+    # brightness_substraction():
+    img = Image.open("static/img/img_now.jpg")
+    img = img.convert("RGB")
+    img_arr = np.asarray(img).astype('int16')
+    img_arr = img_arr-100
+    img_arr = np.clip(img_arr, 0, 255)
+    new_arr = img_arr.astype('uint8')
+    new_img = Image.fromarray(new_arr)
+    new_img.save("static/img/cocoki/brightness_substraction.jpg")
+
+
+    # brightness_multiplication():
+    img = Image.open("static/img/img_now.jpg")
+    img = img.convert("RGB")
+    img_arr = np.asarray(img)
+    img_arr = img_arr*1.25
+    img_arr = np.clip(img_arr, 0, 255)
+    new_arr = img_arr.astype('uint8')
+    new_img = Image.fromarray(new_arr)
+    new_img.save("static/img/cocoki/brightness_multiplication.jpg")
+
+
+    # brightness_division():
+    img = Image.open("static/img/img_now.jpg")
+    img = img.convert("RGB")
+    img_arr = np.asarray(img)
+    img_arr = img_arr/1.25
+    img_arr = np.clip(img_arr, 0, 255)
+    new_arr = img_arr.astype('uint8')
+    new_img = Image.fromarray(new_arr)
+    new_img.save("static/img/cocoki/brightness_division.jpg")

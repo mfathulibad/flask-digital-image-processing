@@ -165,17 +165,17 @@
 
                                 <div class="row">
                                     {% for photo in photos %}
-                                    <div class="col-md-4" onclick="flipImage(this)" data-new-image="{{ photo_folder }}/{{ photo.filename }}">
+                                    <div class="col-md-4" onclick="flipImage(this)" data-ori="{{ photo_folder }}/{{ photo.filename }}" data-new-image="/static/img/me.jpg">
                                         <img class="game-img" id="{{ photo.filename }}"
-                                            src="/static/img/me.jpg" alt="Random Photo"
+                                            src="{{ photo_folder }}/{{ photo.filename }}" alt="Random Photo"
                                             style="height: 300px; margin: 30px;">
                                     </div>
                                     {% endfor %}
 
-                                    {% for photo in photos2 %}
-                                    <div class="col-md-4" onclick="flipImage(this)" data-new-image="{{ photo_folder }}/{{ photo.filename }}">
+                                    {% for photo in photos %}
+                                    <div class="col-md-4" onclick="flipImage(this)" data-ori="{{ photo_folder }}/{{ photo.filename }}" data-new-image="/static/img/me.jpg">
                                         <img class="game-img" id="{{ photo.filename }}"
-                                            src="/static/img/me.jpg" alt="Random Photo"
+                                            src="{{ photo_folder }}/{{ photo.filename }}" alt="Random Photo"
                                             style="height: 300px; margin: 30px;">
                                     </div>
                                     {% endfor %}
@@ -223,9 +223,17 @@
     var clickedImages = []; // Array untuk menyimpan gambar yang telah diklik
     var score = 0; // Skor awal
 
+    document.querySelector(".row").addEventListener("click", function (event) {
+        var clickedElement = event.target.closest(".game-img");
+        if (clickedElement) {
+            flipImage(clickedElement);
+        }
+    });
+
     function flipImage(element) {
         var imageId = element.querySelector("img").id;
         var newImage = element.getAttribute("data-new-image");
+        var originalImage = element.getAttribute("data-ori");
 
         clickedImages.push(imageId); // Tambahkan ID gambar ke dalam array
         // Tukar gambar
@@ -247,8 +255,8 @@
                     setTimeout(function () {
                         var prevElement1 = document.querySelector("[id='" + clickedImages[0] + "']").parentElement;
                         var prevElement2 = document.querySelector("[id='" + clickedImages[1] + "']").parentElement;
-                        prevElement1.querySelector("img").src = prevElement1.getAttribute("data-new-image");
-                        prevElement2.querySelector("img").src = prevElement2.getAttribute("data-new-image");
+                        prevElement1.querySelector("img").src = prevElement1.getAttribute("data-ori");
+                        prevElement2.querySelector("img").src = prevElement2.getAttribute("data-ori");
                         console.log(clickedImages[0] + " " + clickedImages[1] + " Gagal")
                         clickedImages = []; // Reset array clickedImages
                     }, 1000); // Tunggu 1 detik sebelum mengembalikan gambar ke aslinya
